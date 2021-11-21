@@ -1,2 +1,2 @@
 # stone-store
-slow kvdb on package cl-store
+slow kvdb based on package cl-store
