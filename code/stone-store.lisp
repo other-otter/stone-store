@@ -11,11 +11,12 @@
     (start-store))
 
 (defun get-the-time () ;second-second
-    (multiple-value-bind 
-        (the-second the-minute the-hour the-day the-month the-year)
-        (get-decoded-time)
-        (format nil "~a-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0d" 
-                    the-year the-month the-day the-hour the-minute the-second)))
+    #+(or cmu sbcl)
+    (multiple-value-bind (a b c) (sb-unix:unix-gettimeofday) 
+        (format nil "~d~6,'0d" b c))
+    #-(or cmu sbcl)
+    (multiple-value-bind (the-second the-minute the-hour the-day the-month the-year) (get-decoded-time) 
+        (format nil "~a-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0dZ" the-year the-month the-day the-hour the-minute the-second)))
 
 (defun set-the-path (path-string)
     (setf *menu-path* path-string))
@@ -96,5 +97,4 @@
                         (if (>= the-version 0)
                             (uiop:delete-file-if-exists (nth the-version file-list))
                             (uiop:delete-file-if-exists (nth (1- (abs the-version)) (reverse file-list)))))
-                    nil)))))
-;]
+                    nil))))) 
