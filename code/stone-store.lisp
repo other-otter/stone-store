@@ -17,10 +17,10 @@
     #-sbcl
     (format nil "~d" (- (get-universal-time) 2208988800))) ;date +%s
 
-#|
-(multiple-value-bind (the-second the-minute the-hour the-day the-month the-year) (get-decoded-time) 
-    (format nil "~a-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0dZ" the-year the-month the-day the-hour the-minute the-second)))
-|#
+;(equal (parse-integer "123" :junk-allowed t) (parse-integer "123T456" :junk-allowed t))
+;
+;(multiple-value-bind (the-second the-minute the-hour the-day the-month the-year) (get-decoded-time) 
+;    (format nil "~a-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0dZ" the-year the-month the-day the-hour the-minute the-second)))
 
 (defun set-the-path (path-string)
     (setf *menu-path* path-string))
