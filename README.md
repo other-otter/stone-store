@@ -101,6 +101,33 @@ slow-snow kvdb based on package cl-store
 
 ```
 
+## update
+```common-lisp
+;use kv for table
+;https://docs.pingcap.com/tidb/v4.0/tidb-computing
+
+;key-string ~~ value-from
+;key-string-simple-example: "abc"
+;key-string-format-example: "table-abc_index-123_row-456"
+
+;;;;;;
+;;tableID-1,indexID-2
+;;;;;;
+;0,abc,def,ghi
+;1,t,nil,nil
+;2,nil,t,nil
+;3,nil,nil,t
+;;;;;;
+
+;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 0) (list "abc" "def" "ghi))
+;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 1) (list t nil nil))
+;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 2) (list nil t nil))
+;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 3) (list nil nil t))
+
+;(sto:store-get "table-1_index-2_row-3") ;;(NIL NIL T)
+
+```
+
 ## usage
 ```common-lisp
 ;;parameter
@@ -121,6 +148,7 @@ slow-snow kvdb based on package cl-store
 
 ## more
 ```common-lisp
+;https://github.com/skypher/cl-store
 ;https://privet-kitty.github.io/etc/uiop.html
 ;https://github.com/sionescu/bordeaux-threads/blob/master/apiv2/api-locks.lisp
 ;https://github.com/dlowe-net/local-time/blob/a177eb911c0e8116e2bfceb79049265a884b701b/src/local-time.lisp#L1122
