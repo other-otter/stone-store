@@ -3,7 +3,7 @@
 slow-snow kvdb based on package cl-store
 ;light-snow-solar-terms(2021-11-22)
 
-;lock+key+version+value
+;stone-store      = lock+key+version+value
 ;file-path-string = lock-number-string + key-number-string + time-number-string
 ;file-content     = the-value
 
@@ -11,6 +11,7 @@ slow-snow kvdb based on package cl-store
 ;key_number = hash(the_key)
 ;locknumber = key_number % 6661
 ;timenumber = time.time()
+
 ```
 
 ## load-package
