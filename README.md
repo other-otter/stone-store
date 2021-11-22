@@ -1,7 +1,6 @@
 # stone-store
 ```common-lisp
 slow-snow kvdb based on package cl-store
-
 ;light-snow-solar-terms(2021-11-22)
 
 ;lock+key+version+value
@@ -124,4 +123,5 @@ slow-snow kvdb based on package cl-store
 ```common-lisp
 ;https://privet-kitty.github.io/etc/uiop.html
 ;https://github.com/sionescu/bordeaux-threads/blob/master/apiv2/api-locks.lisp
+;https://github.com/dlowe-net/local-time/blob/a177eb911c0e8116e2bfceb79049265a884b701b/src/local-time.lisp#L1122
 ```
