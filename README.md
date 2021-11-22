@@ -11,7 +11,7 @@ slow-snow kvdb based on package cl-store
 ;key_number = hash(the_key)
 ;locknumber = key_number % 6661
 ;timenumber = time.time()
-
+;theversion = str(timenumber)
 ```
 
 ## load-package
