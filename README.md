@@ -44,7 +44,6 @@ slow-snow kvdb based on package cl-store
 ;stone-store:*store-lock* is an array with 6661 locks
 ;when multiple written keys belong to the same lock
 ;only the code block occupying the lock can be written to the directory
-
 ```
 
 ## store-add
@@ -55,6 +54,7 @@ slow-snow kvdb based on package cl-store
 (stone-store:store-add "abc" 1)
 
 (stone-store:store-add "abc" (list 2))
+
 ```
 
 ## store-set
@@ -64,7 +64,6 @@ slow-snow kvdb based on package cl-store
 
 ;version-string "the-time-number-string"
 ;version-number 0 is the first version, -1 is the last version, and so on
-
 ```
 
 ## store-get
@@ -78,6 +77,7 @@ slow-snow kvdb based on package cl-store
 (stone-store:store-get "abc" 1)
 
 (stone-store:store-get "abc" -1)
+
 ```
 
 ## store-see
@@ -122,5 +122,6 @@ slow-snow kvdb based on package cl-store
 
 ## more
 ```common-lisp
-;
+;https://privet-kitty.github.io/etc/uiop.html
+;https://github.com/sionescu/bordeaux-threads/blob/master/apiv2/api-locks.lisp
 ```
