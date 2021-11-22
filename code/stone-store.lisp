@@ -81,13 +81,13 @@
             (file-menu          (format nil "~A/~A/~A/" *store-path* lock-string key-number-string)))
         (uiop:directory-files file-menu)))
 
-(defun store-del (key-string the-boolean the-version)
+(defun store-del (key-string &optional (the-version nil))
     (let* ( (key-number         (sxhash key-string))
             (key-number-string  (format nil "~20,'0d" key-number))
             (lock-number        (mod key-number 6661))
             (lock-string        (format nil "~4,'0d" lock-number))
             (file-menu          (format nil "~A/~A/~A/" *store-path* lock-string key-number-string)))
-        (if the-boolean
+        (if the-version
             (uiop:delete-directory-tree (uiop:physicalize-pathname file-menu) :validate t :if-does-not-exist :ignore)
             (if (stringp the-version)
                 (let ((file-path (format nil "~A~A" file-menu the-version)))
