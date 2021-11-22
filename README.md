@@ -119,7 +119,7 @@ slow-snow kvdb based on package cl-store
 ;3,nil,nil,t
 ;;;;;;
 
-;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 0) (list "abc" "def" "ghi))
+;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 0) (list "abc" "def" "ghi"))
 ;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 1) (list t nil nil))
 ;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 2) (list nil t nil))
 ;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 3) (list nil nil t))
