@@ -10,13 +10,17 @@
 (defun main ()
     (start-store))
 
-(defun get-the-time () ;second-second
+(defun get-the-time () ;the-second-second
     #+sbcl
     (multiple-value-bind (a b c) (sb-unix:unix-gettimeofday) 
-        (format nil "~d~6,'0d" b c))
+        (format nil "~dT~6,'0d" b c)) ;date +%sT%N
     #-sbcl
-    (multiple-value-bind (the-second the-minute the-hour the-day the-month the-year) (get-decoded-time) 
-        (format nil "~a-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0dZ" the-year the-month the-day the-hour the-minute the-second)))
+    (format nil "~d" (- (get-universal-time) 2208988800))) ;date +%s
+
+#|
+(multiple-value-bind (the-second the-minute the-hour the-day the-month the-year) (get-decoded-time) 
+    (format nil "~a-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0dZ" the-year the-month the-day the-hour the-minute the-second)))
+|#
 
 (defun set-the-path (path-string)
     (setf *menu-path* path-string))
@@ -98,3 +102,22 @@
                             (uiop:delete-file-if-exists (nth the-version file-list))
                             (uiop:delete-file-if-exists (nth (1- (abs the-version)) (reverse file-list)))))
                     nil))))) 
+
+(defun store-end (key-string &optional (the-version -1))
+    (let* ( (key-number         (sxhash key-string))
+            (key-number-string  (format nil "~20,'0d" key-number))
+            (lock-number        (mod key-number 6661))
+            (lock-string        (format nil "~4,'0d" lock-number))
+            (file-menu          (format nil "~A/~A/~A/" *store-path* lock-string key-number-string))
+            (file-list          (uiop:directory-files file-menu)))    
+        (if (uiop:directory-exists-p file-menu)
+            (if (stringp the-version)
+                (let ((file-path (uiop:probe-file* (format nil "~A~A" file-menu the-version))))
+                    (if file-path
+                        (mapcar #'uiop:delete-file-if-exists (remove-if (lambda (a) (equal a file-path)) file-list))
+                        nil))
+                (let (file-path)
+                    (if (>= the-version 0)
+                        (setf file-path (nth the-version file-list))
+                        (setf file-path (nth (1- (abs the-version)) (reverse file-list))))
+                    (mapcar #'uiop:delete-file-if-exists (set-difference file-list (list file-path))))))))
