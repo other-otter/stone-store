@@ -60,7 +60,7 @@ slow-snow kvdb based on package cl-store
 ## store-set
 ```common-lisp
 ;change the value of the corresponding version
-(stone-store:store-set "abc" 0 (cons 3))
+(stone-store:store-set "abc" 0 (cons 3 nil))
 
 ;version-string "the-time-number-string"
 ;version-number 0 is the first version, -1 is the last version, and so on
@@ -125,8 +125,19 @@ slow-snow kvdb based on package cl-store
 ;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 2) (list nil t nil))
 ;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 3) (list nil nil t))
 
-;(sto:store-get "table-1_index-2_row-3") ;;(NIL NIL T)
+;(sto:store-get "table-1_index-2_row-1") ;;(T NIL NIL)
 
+#|
+(defun boolean-string (the-boolean)
+  (if the-boolean
+      "true"
+      "null"))
+
+(mapcar (lambda (a b) (cons a (boolean-string b)))  
+  (sto:store-get (format nil "table-~A_index-~A_row-~A" 1 2 0))
+  (sto:store-get (format nil "table-~A_index-~A_row-~A" 1 2 3)) )
+  
+|#
 ```
 
 ## usage
