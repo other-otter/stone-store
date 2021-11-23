@@ -18,7 +18,7 @@
     (format nil "~d" (- (get-universal-time) 2208988800))) ;date +%s
 
 ;(equal (parse-integer "123" :junk-allowed t) (parse-integer "123T456" :junk-allowed t))
-;
+
 ;(multiple-value-bind (the-second the-minute the-hour the-day the-month the-year) (get-decoded-time) 
 ;    (format nil "~a-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0dZ" the-year the-month the-day the-hour the-minute the-second)))
 
@@ -44,20 +44,22 @@
             (lock-number        (mod key-number 6661))
             (lock-string        (format nil "~4,'0d" lock-number))
             (file-menu          (format nil "~A/~A/~A/" *store-path* lock-string key-number-string)))
-        (if (stringp the-version)
-            (let ((file-path (format nil "~A~A" file-menu the-version)))
-                (progn
-                    (ensure-directories-exist file-menu)
-                    (bt:with-lock-held ((aref *store-lock* lock-number))
-                        (cl-store:store the-value file-path))))
-            (if (numberp the-version)
-                (let ((file-list (uiop:directory-files file-menu)))
+        (if (uiop:directory-exists-p file-menu)
+            (if (stringp the-version)
+                (let ((file-path (format nil "~A~A" file-menu the-version)))
+                    (progn
+                        (ensure-directories-exist file-menu)
+                        (bt:with-lock-held ((aref *store-lock* lock-number))
+                            (cl-store:store the-value file-path))))
+                (if (numberp the-version)
+                    (let ((file-list (uiop:directory-files file-menu)))
                     (if (>= the-version 0)
                         (bt:with-lock-held ((aref *store-lock* lock-number))
                             (cl-store:store the-value (nth the-version file-list)))
                         (bt:with-lock-held ((aref *store-lock* lock-number))
                             (cl-store:store the-value (nth (1- (abs the-version)) (reverse file-list))))))
-                nil))))
+                    nil))
+            nil)))
 
 (defun store-get (key-string &optional (the-version -1))
     (let* ( (key-number         (sxhash key-string))
