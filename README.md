@@ -108,6 +108,7 @@ slow-snow kvdb based on package cl-store
 ;https://docs.pingcap.com/tidb/v4.0/tidb-computing
 
 ;key-string ~~ value-from
+
 ;key-string-simple-example: "abc"
 ;key-string-format-example: "table-abc_index-123_row-456"
 
@@ -120,14 +121,13 @@ slow-snow kvdb based on package cl-store
 ;3,nil,nil,t
 ;;;;;;
 
-;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 0) (list "abc" "def" "ghi"))
-;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 1) (list t nil nil))
-;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 2) (list nil t nil))
-;(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 3) (list nil nil t))
+(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 0) (list "abc" "def" "ghi"))
+(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 1) (list t nil nil))
+(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 2) (list nil t nil))
+(sto:store-add (format nil "table-~A_index-~A_row-~A" 1 2 3) (list nil nil t))
 
-;(sto:store-get "table-1_index-2_row-1") ;;(T NIL NIL)
+(sto:store-get "table-1_index-2_row-1")  ;;(T NIL NIL)
 
-#|
 (defun boolean-string (the-boolean)
   (if the-boolean
       "true"
@@ -135,9 +135,8 @@ slow-snow kvdb based on package cl-store
 
 (mapcar (lambda (a b) (cons a (boolean-string b)))  
   (sto:store-get (format nil "table-~A_index-~A_row-~A" 1 2 0))
-  (sto:store-get (format nil "table-~A_index-~A_row-~A" 1 2 3)))   ;;(("abc" . "null") ("def" . "null") ("ghi" . "true"))
+  (sto:store-get (format nil "table-~A_index-~A_row-~A" 1 2 3)))  ;;(("abc" . "null") ("def" . "null") ("ghi" . "true"))
   
-|#
 ```
 
 ## usage
