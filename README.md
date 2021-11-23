@@ -135,7 +135,7 @@ slow-snow kvdb based on package cl-store
 
 (mapcar (lambda (a b) (cons a (boolean-string b)))  
   (sto:store-get (format nil "table-~A_index-~A_row-~A" 1 2 0))
-  (sto:store-get (format nil "table-~A_index-~A_row-~A" 1 2 3)) )
+  (sto:store-get (format nil "table-~A_index-~A_row-~A" 1 2 3)))   ;;(("abc" . "null") ("def" . "null") ("ghi" . "true"))
   
 |#
 ```
