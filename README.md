@@ -59,7 +59,8 @@ slow-snow kvdb based on package cl-store
 
 ## store-set
 ```common-lisp
-;change the value of the corresponding version
+;function store-set change the value of the corresponding exist-version
+;when need to set new key or key-version use function store-add
 (stone-store:store-set "abc" 0 (cons 3 nil))
 
 ;version-string "the-time-number-string"
