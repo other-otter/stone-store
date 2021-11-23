@@ -7,8 +7,8 @@ slow-snow kvdb based on package cl-store
 ;file-path-string = lock-number-string + key-number-string + time-number-string
 ;file-content     = the-value
 
-;the_key    = "example_string"
-;key_number = hash(the_key)
+;key_string = "example_string"
+;key_number = hash(key_string)
 ;locknumber = key_number % 6661
 ;timenumber = time.time()
 ;theversion = str(timenumber)
@@ -104,7 +104,7 @@ slow-snow kvdb based on package cl-store
 
 ## update
 ```common-lisp
-;use kv for table
+;use kv for table, reference content:
 ;https://docs.pingcap.com/tidb/v4.0/tidb-computing
 
 ;key-string ~~ value-from
@@ -151,6 +151,7 @@ slow-snow kvdb based on package cl-store
 ```common-lisp
 ;https://github.com/skypher/cl-store
 ;https://privet-kitty.github.io/etc/uiop.html
+https://lispcookbook.github.io/cl-cookbook/files.html
 ;https://github.com/sionescu/bordeaux-threads/blob/master/apiv2/api-locks.lisp
 ;https://github.com/dlowe-net/local-time/blob/a177eb911c0e8116e2bfceb79049265a884b701b/src/local-time.lisp#L1122
 ```
