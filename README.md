@@ -83,7 +83,7 @@ slow-snow kvdb based on package cl-store
 
 ## store-see
 ```common-lisp
-;see all the version of the key
+;see all versions of the key
 (stone-store:store-see "abc")
 
 ```
@@ -129,6 +129,9 @@ slow-snow kvdb based on package cl-store
 
 (sto:store-get "table-1_index-2_row-1")  ;;(T NIL NIL)
 
+(setf string-template "table-~A_index-~A_row-~A")
+(sto:store-get (format nil string-template 1 2 2)) ;;(NIL T NIL)
+
 (defun boolean-string (the-boolean)
   (if the-boolean
       "true"
@@ -142,6 +145,8 @@ slow-snow kvdb based on package cl-store
 
 ## usage
 ```common-lisp
+;;nicknames 
+;sto
 ;;parameter
 ;stone-store::*store-path*
 ;stone-store::*store-lock*
